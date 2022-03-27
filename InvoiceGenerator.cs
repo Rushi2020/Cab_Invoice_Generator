@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Cab_Invoice_Generator
 {
@@ -11,8 +9,8 @@ namespace Cab_Invoice_Generator
         const int COST_PER_KILOMETER = 10;
         const int COST_PER_MINUTE = 1;
         const int MINIMUM_FARE = 5;
+        List<Ride> rides = new List<Ride>();
 
-        
 
         public double GenerateFare(double distance, int time)
         {
@@ -22,6 +20,24 @@ namespace Cab_Invoice_Generator
                 return fair;
             }
             return MINIMUM_FARE;
+        }
+
+        public void AddRide(double distance, int time)
+        {
+            rides.Add(new Ride()
+            {
+                distance = distance,
+                time = time
+            });
+        }
+        public double CalculateAggregate()
+        {
+            double fair = 0;
+            foreach (Ride ride in rides)
+            {
+                fair += GenerateFare(ride.distance, ride.time);
+            }
+            return fair;
         }
     }
 }
