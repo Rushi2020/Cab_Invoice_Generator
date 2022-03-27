@@ -27,10 +27,16 @@ namespace CabTesting
         [Test]
         public void givenDistanceAndTime_WhenToCalculateMinimumFare_ShouldReturnMinimumFare()
         {
-            double fair = invoiceGenerator.GenerateFare(0, 0);
-            Assert.AreEqual(5, fair);
+            double fare = invoiceGenerator.GenerateFare(0, 0);
+            Assert.AreEqual(5, fare);
         }
-
-
+        [Test]
+        public void GivenDistanceAndTime_WhenToCalculateForMultipleFare_ShouldReturnAverageFare()
+        {
+            invoiceGenerator.AddRide(2, 5);
+            invoiceGenerator.AddRide(12, 15);
+            double fair = invoiceGenerator.CalculateAggregate();
+            Assert.AreEqual(160, fair);
+        }
     }
 }
